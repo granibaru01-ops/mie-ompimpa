@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mie Ompimpa - Pendaftaran</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 480px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    label { font-weight: bold; display: block; margin-top: 10px; }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      background: #ff5733;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover { background: #ff431e; }
+    .preview-img {
+      width: 100%;
+      margin-top: 10px;
+      border-radius: 10px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Mie Ompimpa</h1>
+    <p style="text-align:center;">🔥 Daftar & pilih menu favoritmu! 🔥</p>
+
+    <form id="formData">
+
+      <label>Nama</label>
+      <input type="text" name="nama" required>
+
+      <label>Nomor WA</label>
+      <input type="text" name="wa" required>
+
+      <label>Produk yang dipilih</label>
+      <select name="produk" required>
+        <option value="Mie Level 1">Mie Level 1</option>
+        <option value="Mie Level 2">Mie Level 2</option>
+        <option value="Mie Level 3">Mie Level 3</option>
+        <option value="Mie Ompimpa Special">Mie Ompimpa Special</option>
+      </select>
+
+      <label>Upload Foto (opsional)</label>
+      <input type="file" id="foto" accept="image/*">
+      <img id="preview" class="preview-img"/>
+
+      <button type="submit">Daftar Sekarang</button>
+    </form>
+  </div>
+
+  <script>
+    // PREVIEW FOTO
+    const fotoInput = document.getElementById("foto");
+    const preview = document.getElementById("preview");
+
+    fotoInput.addEventListener("change", function() {
+      const file = this.files[0];
+      if (file) {
+        preview.style.display = "block";
+        preview.src = URL.createObjectURL(file);
+      }
+    });
+
+    // SUBMIT DATA
+    const scriptURL = "PASTE_URL_GOOGLE_SCRIPT_KAMU";
+
+    document.getElementById("formData").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const form = new FormData();
+      const nama = e.target.nama.value;
+      const wa = e.target.wa.value;
+      const produk = e.target.produk.value;
+
+      // Convert foto ke Base64
+      let fotoBase64 = "";
+      const file = fotoInput.files[0];
+
+      if (file) {
+        fotoBase64 = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.readAsDataURL(file);
+        });
+      }
+
+      form.append("nama", nama);
+      form.append("wa", wa);
+      form.append("produk", produk);
+      form.append("foto", fotoBase64);
+
+      // KIRIM KE GOOGLE SHEETS
+      fetch(scriptURL, { method: "POST", body: form })
+        .then(() => {
+          // KIRIM NOTIF WA KE ADMIN
+          const msg =
+          `Halo admin, ada pendaftar baru 🚀\n\n` +
+          `Nama: ${nama}\n` +
+          `WA: ${wa}\n` +
+          `Produk: ${produk}`;
+
+          const waAdmin = "087776188994";
+          window.location.href =
+            `https://wa.me/${waAdmin}?text=${encodeURIComponent(msg)}`;
+        })
+        .catch((err) => alert("Gagal mengirim data!"));
+    });
+
+  </script>
+</body>
+</html>
