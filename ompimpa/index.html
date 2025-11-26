@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mie Ompimpa - Pendaftaran</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fafafa;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .container {
+      max-width: 480px;
+      margin: auto;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 14px;
+      background: #ff5500;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Mie Ompimpa</h1>
+    <p style="text-align:center;">Daftar & Pesan Sekarang!</p>
+
+    <form id="formData">
+      <label>Nama</label>
+      <input type="text" name="nama" required />
+
+      <label>Nomor WhatsApp</label>
+      <input type="text" name="wa" required />
+
+      <label>Produk yang dipilih</label>
+      <select name="produk" required>
+        <option value="Mie Level 1">Mie Level 1</option>
+        <option value="Mie Level 2">Mie Level 2</option>
+        <option value="Mie Level 3">Mie Level 3</option>
+        <option value="Mie Ompimpa Jumbo">Mie Ompimpa Jumbo</option>
+      </select>
+
+      <label>Upload Foto (Opsional)</label>
+      <input type="file" name="foto" accept="image/*" />
+
+      <button type="submit">Kirim Pendaftaran</button>
+    </form>
+
+    <p id="status" style="margin-top:10px; text-align:center;"></p>
+  </div>
+
+  <script>
+    const scriptURL = "PASTE_GOOGLE_SCRIPT_URL_DI_SINI";
+    const adminWA = "+6287776188994";
+
+    const form = document.getElementById("formData");
+    const statusText = document.getElementById("status");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      statusText.innerText = "Mengirim...";
+
+      const formData = new FormData(form);
+
+      try {
+        await fetch(scriptURL, {
+          method: "POST",
+          body: formData,
+        });
+
+        const nama = formData.get("nama");
+        const wa = formData.get("wa");
+        const produk = formData.get("produk");
+
+        const pesanWA = `Halo admin, ada pendaftar baru:%0A%0ANama: ${nama}%0AWA: ${wa}%0AProduk: ${produk}`;
+        window.open(`https://wa.me/${adminWA}?text=${pesanWA}`);
+
+        statusText.innerText = "Berhasil dikirim!";
+        form.reset();
+      } catch (err) {
+        statusText.innerText = "Gagal mengirim, coba lagi.";
+      }
+    });
+  </script>
+
+</body>
+</html>
