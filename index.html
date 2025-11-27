@@ -1,121 +1,200 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mie Ompimpa - Pendaftaran</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mie Ompimpa — Pedesnya Bikin Lupa Sama Mantan</title>
+  <meta name="description" content="Mie Ompimpa - pedasnya nagih. Daftar & pesan sekarang!" />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fafafa;
-      margin: 0;
-      padding: 0;
-      color: #333;
+    :root{
+      --pink:#ff3b9a;
+      --blue:#00b4ff;
+      --bg:#fff7fb;
+      --card:#ffffff;
+      --muted:#666;
     }
-    .container {
-      max-width: 480px;
-      margin: auto;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-    }
-    form {
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    label {
-      font-weight: bold;
-      margin-top: 10px;
-      display: block;
-    }
-    input, select {
-      width: 100%;
-      padding: 12px;
-      margin-top: 6px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-    }
-    button {
-      margin-top: 15px;
-      width: 100%;
-      padding: 14px;
-      background: #ff5500;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:hover {
-      opacity: 0.9;
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, Arial, sans-serif;margin:0;background:var(--bg);color:#222}
+    .wrap{max-width:1100px;margin:24px auto;padding:20px}
+
+    header{display:flex;align-items:center;justify-content:space-between;padding:10px 0}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{height:56px}
+    nav a{margin-left:14px;color:var(--muted);text-decoration:none;font-weight:600}
+    .cta-wa{background:var(--pink);color:white;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:700}
+
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:24px;align-items:center;margin-top:18px}
+    .hero-left{padding:28px;background:linear-gradient(180deg,#fff 0%,#fff0 100%);border-radius:16px}
+    .hero h1{font-size:34px;margin:0;color:#111}
+    .hero p{color:var(--muted);margin-top:10px}
+    .hero .btn{display:inline-block;margin-top:18px;padding:12px 18px;border-radius:10px;background:var(--pink);color:#fff;text-decoration:none;font-weight:700}
+
+    .hero-right{border-radius:12px;overflow:hidden;background:#f7f7f7;display:flex;align-items:center;justify-content:center}
+    .hero-right img{width:100%;height:100%;object-fit:cover}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:22px}
+    .card{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);text-align:center}
+    .card img{width:100%;height:160px;object-fit:cover;border-radius:8px}
+    .card h4{margin:10px 0 6px}
+    .price{color:var(--pink);font-weight:800}
+
+    .form-wrap{margin-top:20px;background:#fff;padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
+    form label{display:block;font-weight:700;margin-top:10px}
+    input[type=text],select,input[type=file]{width:100%;padding:10px;margin-top:6px;border-radius:8px;border:1px solid #e6e6e6}
+    .submit{margin-top:12px;background:var(--blue);color:#fff;padding:12px;border-radius:10px;border:0;width:100%;font-weight:800}
+
+    footer{margin-top:28px;padding:18px 10px;text-align:center;color:var(--muted)}
+
+    @media(max-width:880px){
+      .hero{grid-template-columns:1fr;}
+      .hero-right{height:220px}
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Mie Ompimpa</h1>
-    <p style="text-align:center;">Daftar & Pesan Sekarang!</p>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <!-- letakkan file logo: LOGO MIE OMPIMPA.png di folder repo -->
+        <img src="LOGO MIE OMPIMPA.png" alt="Mie Ompimpa Logo"/>
+        <div>
+          <div style="font-weight:800">Mie Ompimpa</div>
+          <div style="font-size:13px;color:var(--muted)">Pedasnya Bikin Lupa Sama Mantan</div>
+        </div>
+      </div>
 
-    <form id="formData">
-      <label>Nama</label>
-      <input type="text" name="nama" required />
+      <nav>
+        <a href="#menu">Menu</a>
+        <a href="#daftar">Daftar</a>
+        <a class="cta-wa" href="https://wa.me/6287776188994">Hubungi WA</a>
+      </nav>
+    </header>
 
-      <label>Nomor WhatsApp</label>
-      <input type="text" name="wa" required />
+    <main>
+      <section class="hero">
+        <div class="hero-left">
+          <h1>Mie Ompimpa — Pedesnya Bikin Lupa Sama Mantan</h1>
+          <p>Ayo cobain mie pedas viral yang rasanya nagih. Pesan sekarang, daftar, dan dapatkan promo menarik untuk pembeli pertama.</p>
+          <a class="btn" href="#daftar">Pesan Sekarang</a>
+          <div style="margin-top:18px;color:var(--muted);font-size:14px">Pilihan Populer: Level 1 • Level 2 • Level 3 • Jumbo</div>
+        </div>
+        <div class="hero-right">
+          <!-- contoh gambar hero: gunakan salah satu gambar produk yang dikirim -->
+          <img src="WhatsApp Image 2025-11-05 at 22.58.37.jpeg" alt="Mie Ompimpa"/>
+        </div>
+      </section>
 
-      <label>Produk yang dipilih</label>
-      <select name="produk" required>
-        <option value="Mie Level 1">Mie Level 1</option>
-        <option value="Mie Level 2">Mie Level 2</option>
-        <option value="Mie Level 3">Mie Level 3</option>
-        <option value="Mie Ompimpa Jumbo">Mie Ompimpa Jumbo</option>
-      </select>
+      <section id="menu" style="margin-top:18px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h3 style="margin:0">Menu Populer</h3>
+          <div style="color:var(--muted);font-weight:700">Klik gambar untuk pilih</div>
+        </div>
 
-      <label>Upload Foto (Opsional)</label>
-      <input type="file" name="foto" accept="image/*" />
+        <div class="grid" style="margin-top:12px">
+          <div class="card">
+            <img src="WhatsApp Image 2025-11-05 at 22.58.37.jpeg" alt="Mie Ompimpa"/>
+            <h4>Mie Ompimpa (Chili Oil)</h4>
+            <div class="price">Rp 10.000</div>
+          </div>
 
-      <button type="submit">Kirim Pendaftaran</button>
-    </form>
+          <div class="card">
+            <img src="WhatsApp Image 2025-11-05 at 22.58.37 (1).jpeg" alt="Pangsit Chili Oil"/>
+            <h4>Pangsit Chili Oil</h4>
+            <div class="price">Rp 12.000</div>
+          </div>
 
-    <p id="status" style="margin-top:10px; text-align:center;"></p>
+          <div class="card">
+            <img src="WhatsApp Image 2025-11-05 at 17.32.42.jpeg" alt="Pangsit Kuah"/>
+            <h4>Pangsit Kuah</h4>
+            <div class="price">Rp 12.000</div>
+          </div>
+
+          <div class="card">
+            <img src="WhatsApp Image 2025-11-05 at 17.18.10.jpeg" alt="Es Teh Aroma"/>
+            <h4>Es Teh Aroma</h4>
+            <div class="price">Rp 3.000 - Rp 5.000</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="daftar" class="form-wrap">
+        <h3>Form Pendaftaran & Pemesanan</h3>
+        <p style="color:var(--muted);font-size:14px">Isi data di bawah untuk melakukan pemesanan. Data akan tersimpan ke Google Sheets dan kami akan menghubungi lewat WA.</p>
+
+        <form id="formData">
+          <label>Nama</label>
+          <input type="text" name="nama" required />
+
+          <label>Nomor WhatsApp</label>
+          <input type="text" name="wa" placeholder="62812xxxx" required />
+
+          <label>Produk yang dipilih</label>
+          <select name="produk" required>
+            <option value="Mie Ompimpa (Chili Oil)">Mie Ompimpa (Chili Oil)</option>
+            <option value="Pangsit Chili Oil">Pangsit Chili Oil</option>
+            <option value="Pangsit Kuah">Pangsit Kuah</option>
+            <option value="Es Teh Aroma">Es Teh Aroma</option>
+          </select>
+
+          <label>Unggah Foto (opsional)</label>
+          <input type="file" name="foto" accept="image/*" />
+
+          <button class="submit" type="submit">Kirim Pendaftaran</button>
+          <p id="status" style="margin-top:8px;color:var(--muted)"></p>
+        </form>
+      </section>
+
+    </main>
+
+    <footer>
+      Admin WA: <a href="https://wa.me/6287776188994">+62 877-7618-8994</a> • © Mie Ompimpa
+    </footer>
   </div>
 
+  <!-- ====== SCRIPTS: ganti scriptURL dengan URL Google Apps Script yang kamu deploy ====== -->
   <script>
+    // PASTE Google Apps Script URL setelah kamu deploy script (lihat petunjuk deploy di bawah )
     const scriptURL = "PASTE_GOOGLE_SCRIPT_URL_DI_SINI";
-    const adminWA = "6287776188994";
+    const adminWA = "6287776188994"; // tanpa +
 
-    const form = document.getElementById("formData");
-    const statusText = document.getElementById("status");
+    const form = document.getElementById('formData');
+    const status = document.getElementById('status');
 
-    form.addEventListener("submit", async (e) => {
+    form.addEventListener('submit', async (e) =>{
       e.preventDefault();
-      statusText.innerText = "Mengirim...";
+      status.textContent = 'Mengirim...';
 
-      const formData = new FormData(form);
+      const fd = new FormData(form);
 
-      try {
-        await fetch(scriptURL, {
-          method: "POST",
-          body: formData,
-        });
+      try{
+        await fetch(scriptURL, {method:'POST', body:fd});
 
-        const nama = formData.get("nama");
-        const wa = formData.get("wa");
-        const produk = formData.get("produk");
+        const nama = fd.get('nama');
+        const wa = fd.get('wa');
+        const produk = fd.get('produk');
 
-        const pesanWA = `Halo admin, ada pendaftar baru:%0A%0ANama: ${nama}%0AWA: ${wa}%0AProduk: ${produk}`;
-        window.open(`https://wa.me/${adminWA}?text=${pesanWA}`);
+        const msg = `Halo admin, ada pendaftar baru:%0A%0ANama: ${encodeURIComponent(nama)}%0AWA: ${encodeURIComponent(wa)}%0AProduk: ${encodeURIComponent(produk)}`;
+        window.open(`https://wa.me/${adminWA}?text=${msg}`);
 
-        statusText.innerText = "Berhasil dikirim!";
+        status.textContent = 'Berhasil dikirim — cek WA admin.';
         form.reset();
-      } catch (err) {
-        statusText.innerText = "Gagal mengirim, coba lagi.";
+      }catch(err){
+        console.error(err);
+        status.textContent = 'Gagal mengirim. Pastikan script URL sudah diisi.';
       }
     });
   </script>
 
+  <!-- Petunjuk singkat (letakkan di repo README atau catatan):
+    1) Upload file gambar berikut ke folder repo yang sama: 
+       - LOGO MIE OMPIMPA.png
+       - WhatsApp Image 2025-11-05 at 22.58.37.jpeg
+       - WhatsApp Image 2025-11-05 at 22.58.37 (1).jpeg
+       - WhatsApp Image 2025-11-05 at 17.32.42.jpeg
+       - WhatsApp Image 2025-11-05 at 17.18.10.jpeg
+    2) Buat Google Sheet + Google Apps Script untuk menerima POST form (gue bisa kirimkan scriptnya).
+    3) Ganti nilai scriptURL di atas dengan URL Deploy "Web app" (Anyone, even anonymous).
+    4) Commit & push ke GitHub. Akses lewat https://username.github.io/repo-name/
+  -->
 </body>
 </html>
