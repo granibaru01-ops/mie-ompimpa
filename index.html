@@ -4,144 +4,118 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mie Ompimpa - Pendaftaran</title>
-
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f8f8f8;
+      background: #fafafa;
       margin: 0;
       padding: 0;
+      color: #333;
     }
     .container {
       max-width: 480px;
       margin: auto;
-      background: white;
       padding: 20px;
-      border-radius: 14px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      margin-top: 20px;
     }
     h1 {
       text-align: center;
-      margin-bottom: 10px;
     }
-    label { font-weight: bold; display: block; margin-top: 10px; }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
     input, select {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
+      margin-top: 6px;
       border-radius: 8px;
-      border: 1px solid #ccc;
-      margin-top: 5px;
-      box-sizing: border-box;
+      border: 1px solid #ddd;
     }
     button {
+      margin-top: 15px;
       width: 100%;
-      margin-top: 20px;
-      background: #ff5733;
+      padding: 14px;
+      background: #ff5500;
       color: white;
-      padding: 12px;
       border: none;
       border-radius: 8px;
       font-size: 16px;
       cursor: pointer;
     }
-    button:hover { background: #ff431e; }
-    .preview-img {
-      width: 100%;
-      margin-top: 10px;
-      border-radius: 10px;
-      display: none;
+    button:hover {
+      opacity: 0.9;
     }
   </style>
 </head>
-
 <body>
   <div class="container">
     <h1>Mie Ompimpa</h1>
-    <p style="text-align:center;">🔥 Daftar & pilih menu favoritmu! 🔥</p>
+    <p style="text-align:center;">Daftar & Pesan Sekarang!</p>
 
     <form id="formData">
-
       <label>Nama</label>
-      <input type="text" name="nama" required>
+      <input type="text" name="nama" required />
 
-      <label>Nomor WA</label>
-      <input type="text" name="wa" required>
+      <label>Nomor WhatsApp</label>
+      <input type="text" name="wa" required />
 
       <label>Produk yang dipilih</label>
       <select name="produk" required>
         <option value="Mie Level 1">Mie Level 1</option>
         <option value="Mie Level 2">Mie Level 2</option>
         <option value="Mie Level 3">Mie Level 3</option>
-        <option value="Mie Ompimpa Special">Mie Ompimpa Special</option>
+        <option value="Mie Ompimpa Jumbo">Mie Ompimpa Jumbo</option>
       </select>
 
-      <label>Upload Foto (opsional)</label>
-      <input type="file" id="foto" accept="image/*">
-      <img id="preview" class="preview-img"/>
+      <label>Upload Foto (Opsional)</label>
+      <input type="file" name="foto" accept="image/*" />
 
-      <button type="submit">Daftar Sekarang</button>
+      <button type="submit">Kirim Pendaftaran</button>
     </form>
+
+    <p id="status" style="margin-top:10px; text-align:center;"></p>
   </div>
 
   <script>
-    // PREVIEW FOTO
-    const fotoInput = document.getElementById("foto");
-    const preview = document.getElementById("preview");
+    const scriptURL = "PASTE_GOOGLE_SCRIPT_URL_DI_SINI";
+    const adminWA = "6287776188994";
 
-    fotoInput.addEventListener("change", function() {
-      const file = this.files[0];
-      if (file) {
-        preview.style.display = "block";
-        preview.src = URL.createObjectURL(file);
-      }
-    });
+    const form = document.getElementById("formData");
+    const statusText = document.getElementById("status");
 
-    // SUBMIT DATA
-    const scriptURL = "PASTE_URL_GOOGLE_SCRIPT_KAMU";
-
-    document.getElementById("formData").addEventListener("submit", async (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      statusText.innerText = "Mengirim...";
 
-      const form = new FormData();
-      const nama = e.target.nama.value;
-      const wa = e.target.wa.value;
-      const produk = e.target.produk.value;
+      const formData = new FormData(form);
 
-      // Convert foto ke Base64
-      let fotoBase64 = "";
-      const file = fotoInput.files[0];
-
-      if (file) {
-        fotoBase64 = await new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result);
-          reader.readAsDataURL(file);
+      try {
+        await fetch(scriptURL, {
+          method: "POST",
+          body: formData,
         });
+
+        const nama = formData.get("nama");
+        const wa = formData.get("wa");
+        const produk = formData.get("produk");
+
+        const pesanWA = `Halo admin, ada pendaftar baru:%0A%0ANama: ${nama}%0AWA: ${wa}%0AProduk: ${produk}`;
+        window.open(`https://wa.me/${adminWA}?text=${pesanWA}`);
+
+        statusText.innerText = "Berhasil dikirim!";
+        form.reset();
+      } catch (err) {
+        statusText.innerText = "Gagal mengirim, coba lagi.";
       }
-
-      form.append("nama", nama);
-      form.append("wa", wa);
-      form.append("produk", produk);
-      form.append("foto", fotoBase64);
-
-      // KIRIM KE GOOGLE SHEETS
-      fetch(scriptURL, { method: "POST", body: form })
-        .then(() => {
-          // KIRIM NOTIF WA KE ADMIN
-          const msg =
-          `Halo admin, ada pendaftar baru 🚀\n\n` +
-          `Nama: ${nama}\n` +
-          `WA: ${wa}\n` +
-          `Produk: ${produk}`;
-
-          const waAdmin = "087776188994";
-          window.location.href =
-            `https://wa.me/${waAdmin}?text=${encodeURIComponent(msg)}`;
-        })
-        .catch((err) => alert("Gagal mengirim data!"));
     });
-
   </script>
+
 </body>
 </html>
